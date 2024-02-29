@@ -15,6 +15,7 @@ use Yii;
  * @property string $film_duration
  * @property string $name_ru
  * @property string $name_kk
+ * @property string $type
  *
  * @property FilmsGenres[] $filmsGenres
  */
@@ -34,8 +35,8 @@ class Films extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk', ], 'required'],
-            [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk'], 'string', 'max' => 250],
+            [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type' ], 'required'],
+            [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type'], 'string', 'max' => 250],
 
         ];
     }
@@ -47,6 +48,7 @@ class Films extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
+            'type'=> Yii::t('common','Type'),
             'name_en' => Yii::t('common', 'Name En'),
             'age_limit' => Yii::t('common', 'Age Limit'),
             'film_duration' => Yii::t('common', 'Film Duration'),
@@ -73,5 +75,18 @@ class Films extends \yii\db\ActiveRecord
     public static function find()
     {
         return new FilmsQuery(get_called_class());
+    }
+
+
+    public static function instantiate($row): CartoonFilms|Films|MovieFilms
+    {
+        switch ($row['type']){
+            case MovieFilms::TYPE:
+                return new MovieFilms();
+            case CartoonFilms::TYPE:
+                return new CartoonFilms();
+            default:
+                return new self;
+        }
     }
 }

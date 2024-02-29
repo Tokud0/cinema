@@ -10,6 +10,7 @@ use yii\helpers\ArrayHelper;
 class FilmsForm extends Model
 {
     public ?int $id = null;
+    public ?string $type = null;
     public ?string $name_en = null;
     public ?string $name_ru= null;
     public ?string $name_kk = null;
@@ -26,9 +27,9 @@ class FilmsForm extends Model
     public function rules(): array
     {
         return[
-          [['name_en','name_ru','name_kk','film_genre','age_limit','film_duration'],'required'],
+          [['name_en','name_ru','name_kk','film_genre','age_limit','film_duration','type'],'required'],
           ['film_genre', 'each', 'rule' => 'number'],
-          [['name_en','name_ru','name_kk','age_limit','film_duration',],'string'],
+          [['name_en','name_ru','name_kk','age_limit','film_duration','type'],'string'],
           ['id', 'integer', 'min' => 1],
         ];
     }
@@ -39,6 +40,7 @@ class FilmsForm extends Model
             return;
         }
         $this->id = $film->id;
+        $this->type = $film ->type;
         $this->name_en = $film->name_en;
         $this->name_kk = $film->name_kk;
         $this->name_ru = $film->name_ru;
@@ -55,6 +57,7 @@ class FilmsForm extends Model
     {
 
         $film = $this->id ? Films::findOne($this->id) : \Yii::createObject(Films::class);
+        $film->type = $this->type;
         $film->name_en = $this->name_en;
         $film->name_ru = $this->name_ru;
         $film->name_kk = $this->name_kk;
