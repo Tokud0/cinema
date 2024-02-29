@@ -16,9 +16,16 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <?php $genre = ArrayHelper::map(\app\models\FilmsGenre::find()->all(), 'id', 'genre') ?>
 
+
     <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'name_kk')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model,'type')->dropDownList(
+        [
+            'movie'=>'movie',
+            'cartoon'=>'cartoon'
+        ]
+    ) ?>
 
     <?php echo $form->field($model, 'film_genre')->widget(Select2::classname(), [
         'data' => $genre,

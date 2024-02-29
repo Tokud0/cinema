@@ -9,26 +9,37 @@ namespace app\models\Film;
  */
 class FilmsQuery extends \yii\db\ActiveQuery
 {
-    /*public function active()
-    {
-        return $this->andWhere('[[status]]=1');
-    }*/
+//    /*public function active()
+//    {
+//        return $this->andWhere('[[status]]=1');
+//    }*/
+//
+//    /**
+//     * {@inheritdoc}
+//     * @return Films[]|array
+//     */
+//    public function all($db = null)
+//    {
+//        return parent::all($db);
+//    }
+//
+//    /**
+//     * {@inheritdoc}
+//     * @return Films|array|null
+//     */
+//    public function one($db = null)
+//    {
+//        return parent::one($db);
+//    }
+    public $type;
 
-    /**
-     * {@inheritdoc}
-     * @return Films[]|array
-     */
-    public function all($db = null)
-    {
-        return parent::all($db);
-    }
+    public $tableName;
 
-    /**
-     * {@inheritdoc}
-     * @return Films|array|null
-     */
-    public function one($db = null)
+    public function prepare($builder)
     {
-        return parent::one($db);
+        if($this->type !== null){
+            $this->andWhere(["$this->tableName.type"=>$this->type]);
+        }
+        return parent::prepare($builder);
     }
 }
