@@ -15,17 +15,48 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     <?php $genre = ArrayHelper::map(\app\models\FilmsGenre::find()->all(), 'id', 'genre') ?>
+    <?php $country_en = ArrayHelper::map(\app\models\Country::find()->all(),'id','name_en') ?>
+    <?php $country_ru = ArrayHelper::map(\app\models\Country::find()->all(),'name_en','name_ru') ?>
+    <?php $country_kk = ArrayHelper::map(\app\models\Country::find()->all(),'name_ru','name_kk') ?>
 
 
-    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'name_kk')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model,'type')->dropDownList(
         [
             'movie'=>'movie',
             'cartoon'=>'cartoon'
         ]
     ) ?>
+    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name_ru')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name_kk')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model,'description_en')->textInput(['maxlength'=>true]) ?>
+    <?= $form->field($model,'description_ru')->textInput(['maxlength'=>true]) ?>
+    <?= $form->field($model,'description_kk')->textInput(['maxlength'=>true]) ?>
+    <?php echo $form->field($model, 'country_en')->widget(Select2::classname(), [
+        'data' => $country_en,
+        'options' => ['placeholder' => 'Choose country'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+
+    ]);?>
+    <?php echo $form->field($model, 'country_ru')->widget(Select2::classname(), [
+        'data' => $country_ru,
+        'options' => ['placeholder' => 'Choose country'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+
+    ]);?>
+    <?php echo $form->field($model, 'country_kk')->widget(Select2::classname(), [
+        'data' => $country_kk,
+        'options' => ['placeholder' => 'Choose country'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+
+    ]);?>
+
 
     <?php echo $form->field($model, 'film_genre')->widget(Select2::classname(), [
         'data' => $genre,

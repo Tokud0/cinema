@@ -3,6 +3,7 @@
 use app\models\Film\Films;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\grid\SerialColumn;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => SerialColumn::class],
 
             'id',
 
@@ -33,6 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                     'attribute'=>'name_'.$suffix,
                     'format'=>'raw',
+
+            ],
+            [
+                    'attribute'=>'description_'.$suffix,
+                    'format'=>'raw',
+            ],
+            [
+                'attribute'=>'country_'.$suffix,
 
             ],
             ['attribute'=> 'filmsGenres',
@@ -49,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'age_limit',
             'film_duration',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Films $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }

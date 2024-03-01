@@ -15,6 +15,15 @@ class m240226_085017_Description extends Migration
         $this->addColumn('films','description_en', $this->string()->notNull());
         $this->addColumn('films','description_ru', $this->string()->notNull());
         $this->addColumn('films','description_kk', $this->string()->notNull());
+        $this->addColumn('films','country_en',$this->string()->notNull());
+        $this->addColumn('films','country_ru',$this->string()->notNull());
+        $this->addColumn('films','country_kk',$this->string()->notNull());
+        $this->createTable('country',[
+            'id'=> $this->primaryKey(),
+            'name_en'=>$this->string()->notNull(),
+            'name_ru'=>$this->string()->notNull(),
+            'name_kk'=>$this->string()->notNull(),
+        ]);
     }
 
     /**

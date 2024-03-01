@@ -19,6 +19,12 @@ class FilmsForm extends Model
     public ?string $age_limit = null;
 
     public ?string $film_duration = null;
+    public ?string $description_en = null;
+    public ?string $description_ru = null;
+    public ?string $description_kk = null;
+    public ?string $country_en = null;
+    public ?string $country_ru = null;
+    public ?string $country_kk = null;
 
 
 
@@ -27,9 +33,9 @@ class FilmsForm extends Model
     public function rules(): array
     {
         return[
-          [['name_en','name_ru','name_kk','film_genre','age_limit','film_duration','type'],'required'],
+          [['name_en','name_ru','name_kk','film_genre','age_limit','film_duration','type','description_en','description_ru','description_kk','country_en','country_ru','country_kk'],'required'],
           ['film_genre', 'each', 'rule' => 'number'],
-          [['name_en','name_ru','name_kk','age_limit','film_duration','type'],'string'],
+          [['name_en','name_ru','name_kk','age_limit','film_duration','type','description_en','description_ru','description_kk','country_en','country_ru','country_kk'],'string'],
           ['id', 'integer', 'min' => 1],
         ];
     }
@@ -47,6 +53,13 @@ class FilmsForm extends Model
         $this->film_genre = ArrayHelper::getColumn ($film->filmsGenres,'genre_id');
         $this->age_limit = $film->age_limit;
         $this->film_duration =$film->film_duration;
+        $this->description_en = $film->description_en;
+        $this->description_ru = $film->description_ru;
+        $this->description_kk = $film->description_kk;
+        $this->country_en = $film->country_en;
+        $this->country_ru = $film->country_ru;
+        $this->country_kk = $film->country_kk;
+
     }
 
 
@@ -64,6 +77,12 @@ class FilmsForm extends Model
 
         $film->film_duration = $this->film_duration;
         $film->age_limit = $this->age_limit;
+        $film->description_en = $this->description_en;
+        $film->description_ru = $this->description_ru;
+        $film->description_kk = $this->description_kk;
+        $film->country_en = $this->country_en;
+        $film->country_ru = $this->country_ru;
+        $film->country_kk = $this->country_kk;
         $film->save();
 
         $this->id = $film->id;

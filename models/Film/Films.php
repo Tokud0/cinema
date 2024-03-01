@@ -16,7 +16,12 @@ use Yii;
  * @property string $name_ru
  * @property string $name_kk
  * @property string $type
- *
+ * @property string description_en
+ * @property string description_ru
+ * @property string description_kk
+ * @property string country_en
+ * @property string country_ru
+ * @property string country_kk
  * @property FilmsGenres[] $filmsGenres
  */
 class Films extends \yii\db\ActiveRecord
@@ -37,6 +42,7 @@ class Films extends \yii\db\ActiveRecord
         return [
             [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type' ], 'required'],
             [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type'], 'string', 'max' => 250],
+            [['description_en','description_ru','description_kk','country_en','country_ru','country_kk'],'string','max'=>255],
 
         ];
     }
@@ -54,6 +60,15 @@ class Films extends \yii\db\ActiveRecord
             'film_duration' => Yii::t('common', 'Film Duration'),
             'name_ru' => Yii::t('common', 'Name Ru'),
             'name_kk' => Yii::t('common', 'Name Kk'),
+            'description_en'=> Yii::t('common','Description'),
+            'description_ru'=> Yii::t('common','Описание'),
+            'description_kk'=> Yii::t('common','Сипаттама'),
+            'country_en'=> Yii::t('common','Country'),
+            'country_ru'=> Yii::t('common','Страна'),
+            'country_kk'=> Yii::t('common','Ел'),
+
+
+
 
         ];
     }
