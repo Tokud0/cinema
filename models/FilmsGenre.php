@@ -8,21 +8,14 @@ use Yii;
  * This is the model class for table "films_genre".
  *
  * @property int $id
- * @property string $genre
+ * @property string $genre_en
+ * @property string $genre_ru
+ * @property string $genre_kk
  *
  * @property FilmsGenres[] $filmsGenres
  */
 class FilmsGenre extends \yii\db\ActiveRecord
 {
-    /**
-     * @var int|mixed|null
-     */
-    public mixed $film_id;
-    /**
-     * @var mixed|null
-     */
-    public mixed $genre_id;
-
     /**
      * {@inheritdoc}
      */
@@ -37,8 +30,9 @@ class FilmsGenre extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['genre'], 'required'],
-            [['genre'], 'string', 'max' => 250],
+            [['genre_en', 'genre_ru', 'genre_kk'], 'required'],
+            [['genre_en'], 'string', 'max' => 250],
+            [['genre_ru', 'genre_kk'], 'string', 'max' => 255],
         ];
     }
 
@@ -49,7 +43,9 @@ class FilmsGenre extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('common', 'ID'),
-            'genre' => Yii::t('common', 'Genre'),
+            'genre_en' => Yii::t('common', 'Genre En'),
+            'genre_ru' => Yii::t('common', 'Genre Ru'),
+            'genre_kk' => Yii::t('common', 'Genre Kk'),
         ];
     }
 
@@ -60,7 +56,7 @@ class FilmsGenre extends \yii\db\ActiveRecord
      */
     public function getFilmsGenres()
     {
-        return $this->hasMany(FilmsGenres::class, ['genre_id' => 'id']);
+        return $this->hasMany(FilmsGenres::className(), ['genre_id' => 'id']);
     }
 
     /**

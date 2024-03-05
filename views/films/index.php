@@ -48,12 +48,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'contentOptions'=>['class'=>'text-center align-mode'],
                 'headerOptions'=>['class'=>'text-center align-mode'],
-                'value'=> static function(Films $model) {
+                'value'=> static function(Films $model)use ($suffix) {
                     $cur_gen =[];
-                    foreach ($model->filmsGenres as $genre) {
-                        $cur_gen[] = $genre->genre->genre;
+                    foreach ($model->filmsGenres as $genre)  {
+                        $cur_gen['en'][] = $genre->genre->genre_en;
+                        $cur_gen['ru'][] = $genre->genre->genre_ru;
+                        $cur_gen['kk'][] = $genre->genre->genre_kk;
                     }
-                    return implode(', ', $cur_gen);
+                    return implode(', ', $cur_gen[$suffix]??[]);
                 }],
             'age_limit',
             'film_duration',

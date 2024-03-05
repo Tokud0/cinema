@@ -27,7 +27,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'genre',
+            'genre_en',
+            'genre_ru',
+            'genre_kk',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, FilmsGenre $model, $key, $index, $column) {

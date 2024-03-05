@@ -30,34 +30,34 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header id="header">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-            ['label' => Yii::t('app', 'About'), 'url' => ['/site/about']],
-            ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest
-                ? ['label' => Yii::t('app','Login'), 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/site/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-        ]
-    ]);
-    NavBar::end();
-    ?>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
+        <div class="container">
+            <a class="navbar-brand" href="#"><?= Yii::t('app', 'Olimpycos Cinema') ?>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><?= Yii::t('app', 'About Us') ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><?= Yii::t('app', 'Contact') ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><?= Yii::t('app', 'Schedule') ?></a>
+                        <?= $this->render('language',['class' => 'lang_button'])   ?>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light" href="#"><?= Yii::t('app', 'Login') ?></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
+
 
 <main id="main" class="flex-shrink-0" role="main">
     <div class="container">
@@ -69,14 +69,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     </div>
 </main>
 
-<footer id="footer" class="mt-auto py-3 bg-light">
+<footer class="bg-dark text-light text-center py-3">
     <div class="container">
-        <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy;  <?= Yii::t('app','My company')?> <?= date('Y') ?>| <?= $this->render('language',['class' => 'lang_button'])   ?></div>
-
-        </div>
+        <p><?= Yii::t('app', 'Olimpycos Cinema') ?> | <?= Yii::t('app', 'Адрес: Город, улица, дом') ?> </p> </div>
     </div>
 </footer>
+
 
 
 
