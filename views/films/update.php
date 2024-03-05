@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /** @var yii\web\View $this */
 /** @var \app\models\Film\Films $model */
+/** @var  string $suffix */
 
 $this->title = Yii::t('common', 'Update Films: {name}', [
     'name' => $model->id,
@@ -18,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('common', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'suffix'=>$suffix,
     ]) ?>
 
 </div>

@@ -74,6 +74,7 @@ class FilmsController extends BaseController
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'suffix'=>$this->suffix,
 
         ]);
     }
@@ -101,6 +102,7 @@ class FilmsController extends BaseController
 
         return $this->render('create', [
             'model' => $model,
+            'suffix'=>$this->suffix,
         ]);
     }
 
@@ -150,6 +152,7 @@ class FilmsController extends BaseController
 
         return $this->render('update', [
             'model' => $model,
+            'suffix'=>$this->suffix,
         ]);
     }
 

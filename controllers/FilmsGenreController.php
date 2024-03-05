@@ -13,6 +13,8 @@ use yii\filters\VerbFilter;
  */
 class FilmsGenreController extends BaseController
 {
+
+
     /**
      * @inheritDoc
      */
@@ -54,6 +56,7 @@ class FilmsGenreController extends BaseController
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'suffix'=>$this->suffix,
         ]);
     }
 
@@ -67,6 +70,7 @@ class FilmsGenreController extends BaseController
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'suffix'=>$this->suffix,
         ]);
     }
 
@@ -89,6 +93,7 @@ class FilmsGenreController extends BaseController
 
         return $this->render('create', [
             'model' => $model,
+            'suffix'=>$this->suffix,
         ]);
     }
 
@@ -109,6 +114,7 @@ class FilmsGenreController extends BaseController
 
         return $this->render('update', [
             'model' => $model,
+            'suffix'=>$this->suffix,
         ]);
     }
 
@@ -141,5 +147,4 @@ class FilmsGenreController extends BaseController
 
         throw new NotFoundHttpException(Yii::t('common', 'The requested page does not exist.'));
     }
-
 }

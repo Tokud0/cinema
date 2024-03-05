@@ -4,20 +4,25 @@ use kartik\select2\Select2;
 use kartik\widgets\RangeInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\VarDumper;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var \app\models\Film\FilmsForm $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var string $suffix  */
 ?>
 
 <div class="films-form">
 
+
+
     <?php $form = ActiveForm::begin(); ?>
-    <?php $genre = ArrayHelper::map(\app\models\FilmsGenre::find()->all(), 'id', 'genre') ?>
+    <?php $genre = ArrayHelper::map(\app\models\FilmsGenre::find()->all(), 'id', 'genre_'.$suffix) ?>
     <?php $country_en = ArrayHelper::map(\app\models\Country::find()->all(),'id','name_en') ?>
     <?php $country_ru = ArrayHelper::map(\app\models\Country::find()->all(),'name_en','name_ru') ?>
     <?php $country_kk = ArrayHelper::map(\app\models\Country::find()->all(),'name_ru','name_kk') ?>
+
 
 
     <?= $form->field($model,'type')->dropDownList(
