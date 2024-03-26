@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\Film\Films;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -59,11 +61,28 @@ class SiteController extends BaseController
      *
      * @return string
      */
-    public function actionIndex()
-    {
 
-        return $this->render('index');
+
+        public function actionIndex()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Films::find(),
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'suffix' => $this->suffix
+        ]);
     }
+    public function actionView(): string
+    {
+        $model = Films::findOne(['id']);
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
 
     /**
      * Login action.
@@ -126,5 +145,6 @@ class SiteController extends BaseController
     {
         return $this->render('about');
     }
+
 
 }

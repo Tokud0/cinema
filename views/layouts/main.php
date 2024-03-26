@@ -33,30 +33,24 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
         <div class="container">
-            <a class="navbar-brand" href="#"><?= Yii::t('app', 'Olimpycos Cinema') ?>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="<?= Yii::t('app', 'Toggle navigation') ?>">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="#"><?= Yii::t('app', 'Olimpycos Cinema') ?></a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><?= Yii::t('app', 'Schedule') ?></a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><?= Yii::t('app', 'About Us') ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><?= Yii::t('app', 'Contact') ?></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><?= Yii::t('app', 'Schedule') ?></a>
-                        <?= $this->render('language',['class' => 'lang_button'])   ?>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light" href="#"><?= Yii::t('app', 'Login') ?></a>
+                        <a class="btn btn-outline-light" href="site/login"><?= Yii::t('app', 'Login') ?></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
 
 
 <main id="main" class="flex-shrink-0" role="main">
@@ -71,7 +65,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <footer class="bg-dark text-light text-center py-3">
     <div class="container">
-        <p><?= Yii::t('app', 'Olimpycos Cinema') ?> | <?= Yii::t('app', 'Адрес: Город, улица, дом') ?> </p> </div>
+        <p><?= Yii::t('app', 'Olimpycos Cinema') ?> | <?= Yii::t('app', 'Адрес: Город, улица, дом') ?>                         <?= $this->render('language',['class' => 'lang_button'])   ?></p> </div>
     </div>
 </footer>
 
