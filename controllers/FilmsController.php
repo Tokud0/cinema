@@ -5,11 +5,15 @@ namespace app\controllers;
 use app\models\Film\Films;
 use app\models\Film\FilmsForm;
 use app\models\FilmsGenres;
+use Faker\Provider\Image;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\base\Response;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 use yii\web\NotFoundHttpException;
+use yii\web\UploadedFile;
 
 /**
  * FilmsController implements the CRUD actions for Films model.
@@ -85,24 +89,34 @@ class FilmsController extends BaseController
      * @return string|\yii\web\Response
      * @throws InvalidConfigException
      */
-    public function actionCreate(): \yii\web\Response|string
+    public function actionCreate(): Response|string
     {
-        $model = Yii::createObject( FilmsForm::class);
-        $model->loadData(null);
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
+        $model = new FilmsForm();
 
-                if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-        } else {
+        if ($model->load(Yii::$app->request->post())){;
+        $model->image = UploadedFile::getInstance($model,'image');
+        $image_name = $model->name_en.rand(1,4000).'.'.$model->image->extension;
+        $image_path = 'poster/'.$image_name;
+        $model->image->saveAs($image_path);
+        $model->image = $image_path;
+        $model->poster = $image_path;
+        $model->save();
+//        VarDumper::dump($image_name,10,true);
+//            VarDumper::dump($image_path,10,true);
+//            VarDumper::dump($model,10,true);
+//        die;
+            return $this->redirect(['view','id'=>$model->id]);
+
+
+
+
+        }else {
             $model->loadData(null);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'suffix'=>$this->suffix,
+            'suffix' => $this->suffix,
         ]);
     }
 
@@ -155,6 +169,45 @@ class FilmsController extends BaseController
             'suffix'=>$this->suffix,
         ]);
     }
+
+    /**
+     * @throws NotFoundHttpException
+     * @throws InvalidConfigException
+     */
+//    public function actionUpload()
+//    {
+//        $model = new FilmsForm();
+//
+//        if (Yii::$app->request->isPost) {
+//            $model->load(Yii::$app->request->post());
+//            $model->poster = UploadedFile::getInstance($model, 'poster');
+//
+//            if ($model->save()) {
+//                return $this->redirect(['view', 'id' => $model->id]);
+//            }
+//        }
+//
+//        return $this->render('upload', [
+//            'model' => $model,
+//        ]);
+//    }
+
+    public function
+    actionUpload(): bool|string
+    {
+        $model = new FilmsForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            if ($model->upload()) {
+                return true;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
+
+
 
     /**
      * Deletes an existing Films model.

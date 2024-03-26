@@ -5,6 +5,7 @@ namespace app\models\Film;
 use app\models\FilmsGenres;
 use app\models\FilmsGenresQuery;
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "films".
@@ -20,8 +21,7 @@ use Yii;
  * @property string description_ru
  * @property string description_kk
  * @property string country_en
- * @property string country_ru
- * @property string country_kk
+ * @property string poster
  * @property FilmsGenres[] $filmsGenres
  */
 class Films extends \yii\db\ActiveRecord
@@ -40,9 +40,11 @@ class Films extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type' ], 'required'],
+            [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type', 'poster'], 'required'],
             [['name_en', 'age_limit', 'film_duration', 'name_ru', 'name_kk','type'], 'string', 'max' => 250],
-            [['description_en','description_ru','description_kk','country_en','country_ru','country_kk'],'string','max'=>255],
+            [['description_en','description_ru','description_kk','country_en','poster'],'string','max'=>255],
+            [['image'], 'safe'],
+            [['image'],'file','extensions'=> 'png, jpg, jpeg, webp']
 
         ];
     }
@@ -64,13 +66,16 @@ class Films extends \yii\db\ActiveRecord
             'description_ru'=> Yii::t('common','Описание'),
             'description_kk'=> Yii::t('common','Сипаттама'),
             'country_en'=> Yii::t('common','Country'),
-            'country_ru'=> Yii::t('common','Страна'),
-            'country_kk'=> Yii::t('common','Ел'),
+            'poster'=> Yii::t('common','Poster')
 
 
 
 
         ];
+    }
+    public function getImage(): string
+    {
+        return Html::img(Yii::$app->request->baseUrl . '/' . $this->poster, ['alt' => 'Image','width' => '150px', 'height' => '150px'],);
     }
 
     /**

@@ -1,9 +1,12 @@
 <?php
 
+
 use kartik\select2\Select2;
+use kartik\widgets\FileInput;
 use kartik\widgets\RangeInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\helpers\VarDumper;
 use yii\widgets\ActiveForm;
 
@@ -17,7 +20,7 @@ use yii\widgets\ActiveForm;
 
 
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
     <?php $genre = ArrayHelper::map(\app\models\FilmsGenre::find()->all(), 'id', 'genre_'.$suffix) ?>
     <?php $country_en = ArrayHelper::map(\app\models\Country::find()->all(),'id','name_en') ?>
     <?php $country_ru = ArrayHelper::map(\app\models\Country::find()->all(),'name_en','name_ru') ?>
@@ -39,22 +42,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model,'description_kk')->textInput(['maxlength'=>true]) ?>
     <?php echo $form->field($model, 'country_en')->widget(Select2::classname(), [
         'data' => $country_en,
-        'options' => ['placeholder' => 'Choose country'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-
-    ]);?>
-    <?php echo $form->field($model, 'country_ru')->widget(Select2::classname(), [
-        'data' => $country_ru,
-        'options' => ['placeholder' => 'Choose country'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-
-    ]);?>
-    <?php echo $form->field($model, 'country_kk')->widget(Select2::classname(), [
-        'data' => $country_kk,
         'options' => ['placeholder' => 'Choose country'],
         'pluginOptions' => [
             'allowClear' => true
@@ -86,7 +73,7 @@ use yii\widgets\ActiveForm;
         'addon'=>['append'=>['content'=> Yii::t('common','min')]],
     ])
     ?>
-
+    <?= $form->field($model, 'image')->fileInput() ?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

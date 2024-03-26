@@ -1,6 +1,17 @@
 <?php
 
+use yii\bootstrap5\Carousel;
+use yii\grid\GridView;
 use yii\helpers\Html;
+use app\models\Film;
+use app\controllers\SiteController;
+use yii\widgets\DetailView;
+
+/** @var string $dataProvider */
+/** @var string $suffix */
+/* @var $this yii\web\View */
+/* @var $model app\models\Film\Films */
+
 
 ?>
 <!DOCTYPE html>
@@ -10,54 +21,122 @@ use yii\helpers\Html;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= Yii::t('app', 'Olimpycos Cinema') ?></title>
 </head>
-<body>
+<!--<div>-->
 
-<!-- Carousel -->
-<div id="carouselCinema" class="carousel slide my-5" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <?php echo Html::img('@web/images/cinema1.jpg', ['alt' => 'Example Image']); ?>
-        </div>
-        <div class="carousel-item">
-            <?php echo Html::img('@web/images/cinema2.jpg', ['alt' => 'Example Image']); ?>
-        </div>
-        <div class="carousel-item">
-            <?php echo Html::img('@web/images/cinema3.jpg', ['alt' => 'Example Image']); ?>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCinema" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden"><?= Yii::t('app', 'Previous') ?></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselCinema" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden"><?= Yii::t('app', 'Next') ?></span>
-    </button>
-</div>
-
+<!---->
+<!--    <div class="carousel-container"-->
+<!--        --><?php
+//        $items = [
+//                [
+//                        'content'=> '<img src="' . Yii::getAlias('@web') . '/images/cinema8.jpg">',
+//                        'options'=>[],
+//                ],
+//                [
+//                        'content'=>'<img src="' . Yii::getAlias('@web') . '/images/cinema4.jpg">',
+//                        'options'=>[],
+//                ]
+//        ];
+//        $carouselOptions =[
+//                'id'=>'carousel1',
+//                'items'=>$items,
+//                'controls' => ['<span class="glyphicon glyphicon-chevron-left"></span>', '<span class="glyphicon glyphicon-chevron-right"></span>'],
+//                'options' => ['class' => 'slide'],
+//
+//        ];
+//        echo Carousel::widget($carouselOptions);
+//        ?>
+<!---->
+<!--    </div>-->
 <!-- Schedule Section -->
 <section class="container my-5">
     <h2 class="text-center mb-4"><?= Yii::t('app', 'Todays Schedule') ?></h2>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        <!-- Films -->
-        <!-- Film 1 -->
-        <div class="col">
-            <div class="card h-100">
-                <?php echo Html::img('@web/images/film1.jpg', ['alt' => 'Example Image']); ?>
-                <div class="card-body">
-                    <h5 class="card-title text-center"><?= Yii::t('app', 'Aquaman') ?></h5>
-                    <p class="card-text text-center"><?= Yii::t('app', 'Genre: Fantasy') ?></p>
-                    <p class="card-text text-center"><?= Yii::t('app', 'Time: 18:00') ?></p>
-                    <p class="card-text text-center"><?= Yii::t('app', 'Hall: 1') ?></p>
-                    <p class="card-text text-center"><?= Yii::t('app', 'Available Seats: 50') ?></p>
-                    <p class="card-text text-center"><?= Yii::t('app', 'Ticket Price: $10') ?></p>
-                    <a href="#" class="btn btn-success d-block mx-auto"><?= Yii::t('app', 'Buy Ticket') ?></a>
-                </div>
-            </div>
+        <div class="film1">
+        <?php
+        $model = Film\Films::findOne(19);
+        echo DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                    [
+                        'label' => '',
+
+                        'value' => function ($model) {
+                            return $model->getImage();
+                        },
+                    ],
+                    [
+                        'label' => '',
+                        'value' => $model->{'name_'.$suffix},
+                    ],
+                    [
+                        'label' => '',
+                        'value' => $model->age_limit,
+                    ],
+                    [
+                        'label' => '',
+                        'value' => $model->{'description_'.$suffix},
+                    ],
+                    [
+                        'label' => '',
+                        'value' => function (app\models\Film\MovieFilms $model) use ($suffix) {
+                            $cur_gen1 = [];
+                            foreach ($model->filmsGenres as $genre) {
+                                $cur_gen1['en'][] = $genre->genre->genre_en;
+                                $cur_gen1['ru'][] = $genre->genre->genre_ru;
+                                $cur_gen1['kk'][] = $genre->genre->genre_kk;
+                            }
+                            return implode(', ', $cur_gen1[$suffix] ?? []);
+                        },],
+
+            ],
+            'options'=>['class'=>'gried_film'],
+
+        ]);
+
+        ?>
         </div>
-        <!-- More films similar to this -->
+        <div class="film2">
+            <?php
+            $model = Film\Films::findOne(17);
+            echo DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    [
+                        'label' => '',
+                        'value' => $model->{'name_'.$suffix},
+                    ],
+                    [
+                        'label' => '',
+                        'value' => $model->age_limit,
+                    ],
+                    [
+                        'label' => '',
+                        'value' => $model->{'description_'.$suffix},
+                    ],
+                    [
+                        'label' => '',
+                        'value' => function (app\models\Film\MovieFilms $model) use ($suffix) {
+                            $cur_gen1 = [];
+                            foreach ($model->filmsGenres as $genre) {
+                                $cur_gen1['en'][] = $genre->genre->genre_en;
+                                $cur_gen1['ru'][] = $genre->genre->genre_ru;
+                                $cur_gen1['kk'][] = $genre->genre->genre_kk;
+                            }
+                            return implode(', ', $cur_gen1[$suffix] ?? []);
+                        },],
+
+                ],
+                'options'=>['class'=>'gried_film'],
+
+            ]);
+
+            ?>
+        </div>
+
+
+
+
     </div>
-    <!-- Additional Information -->
     <div class="text-center mt-5">
         <h4 class="mb-3"><?= Yii::t('app', 'Useful Information:') ?></h4>
         <div class="interesting-facts">

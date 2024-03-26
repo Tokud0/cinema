@@ -40,7 +40,7 @@ class m240213_105115_update extends Migration
         );
     }
 
-    /**
+    /**\
      * {@inheritdoc}
      */
     public function safeDown()

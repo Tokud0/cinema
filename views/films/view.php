@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'film_genre',
             'age_limit',
             'film_duration',
+            'poster',
         ],
     ]) ?>
 

@@ -60,6 +60,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'age_limit',
             'film_duration',
             [
+                'label' => 'poster',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return $model->getImage();
+                },
+            ],
+            [
                 'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Films $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
